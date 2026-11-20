@@ -20,4 +20,9 @@
 // DefaultPooledClient to receive a client that has connection pooling
 // semantics similar to http.DefaultClient.
 //
+// For services that hot-reload TLS or connection-pool settings under load,
+// Manager hands out Transport generations: Publish swaps in a fresh
+// generation for subsequently started requests while the previous generation
+// drains its in-flight requests before its idle connections are closed, so
+// neither leaks file descriptors nor interrupts requests mid-flight.
 package cleanhttp
